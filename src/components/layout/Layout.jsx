@@ -27,16 +27,18 @@ import PeopleIcon from '@mui/icons-material/People';
 import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
-import AssessmentIcon from '@mui/icons-material/Assessment'; // Nuevo icono para Reportes
-
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import MoneyOffIcon from '@mui/icons-material/MoneyOff';
 import Dashboard from '../dashboard/Dashboard';
 import Ventas from '../ventas/Ventas';
 import Productos from '../productos/Productos';
 import Categorias from '../categorias/Categorias';
 import Usuarios from '../usuarios/Usuarios';
 import Configuracion from '../configuracion/Configuracion';
-import Reportes from '../reportes/Reportes'; // Importar el componente Reportes
-
+import Reportes from '../reportes/Reportes';
+import Caja from '../caja/Caja';
+import Gastos from '../gastos/Gastos';
 const drawerWidth = 240;
 
 export default function Layout() {
@@ -66,13 +68,15 @@ export default function Layout() {
     }
   };
 
-  const menuItems = [
+const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Ventas', icon: <ShoppingCartIcon />, path: '/ventas' },
     { text: 'Productos', icon: <InventoryIcon />, path: '/productos' },
     { text: 'Categorías', icon: <CategoryIcon />, path: '/categorias' },
     { text: 'Usuarios', icon: <PeopleIcon />, path: '/usuarios' },
-    { text: 'Reportes', icon: <AssessmentIcon />, path: '/reportes' }, // Nueva opción de menú
+    { text: 'Reportes', icon: <AssessmentIcon />, path: '/reportes' },
+    { text: 'Caja', icon: <AccountBalanceWalletIcon />, path: '/caja' },
+    { text: 'Gastos', icon: <MoneyOffIcon />, path: '/gastos' },
     { text: 'Configuración', icon: <SettingsIcon />, path: '/configuracion' }
   ];
 
@@ -205,6 +209,12 @@ export default function Layout() {
             <Route path="/categorias" element={<Categorias />} />
             <Route path="/usuarios" element={<Usuarios />} />
             <Route path="/reportes" element={<Reportes />} />
+            <Route path="/caja" element={<Caja />} />
+            <Route path="/gastos" element={<Gastos />} />
+            <Route path="/caja" element={<Caja />} />
+            <Route path="/gastos" element={<Gastos />} />
+            <Route path="/caja" element={<Caja />} />
+            <Route path="/gastos" element={<Gastos />} />
             <Route path="/configuracion" element={<Configuracion />} />
           </Routes>
         </Container>

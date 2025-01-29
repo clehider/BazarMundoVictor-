@@ -9,7 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PrintIcon from '@mui/icons-material/Print';
-import { ref, push, get, set, onValue } from 'firebase/database';
+import { ref, push, get, set, onValue, query, orderByChild, equalTo } from 'firebase/database';
 import { db } from '../../firebase/config';
 
 export default function Ventas() {
@@ -19,6 +19,7 @@ export default function Ventas() {
   const [openTicket, setOpenTicket] = useState(false);
   const [currentVenta, setCurrentVenta] = useState(null);
   const [alerta, setAlerta] = useState({ show: false, message: '', severity: 'success' });
+  const [cajaActual, setCajaActual] = useState(null);
 
   useEffect(() => {
     // Suscripción en tiempo real a ventas
@@ -34,6 +35,25 @@ export default function Ventas() {
 
     // Cargar productos
     cargarProductos();
+    // Cargar caja actual
+    const cargarCajaActual = async () => {
+      try {
+        const cajaRef = ref(db, 'cajas');
+        const cajaQuery = query(cajaRef, orderByChild('estado'), equalTo('abierta'));
+        const snapshot = await get(cajaQuery);
+        
+        if (snapshot.exists()) {
+          const cajas = [];
+          snapshot.forEach((child) => {
+            cajas.push({ id: child.key, ...child.val() });
+          });
+          setCajaActual(cajas[0]);
+        }
+      } catch (error) {
+        console.error('Error al cargar caja:', error);
+      }
+    };
+    cargarCajaActual();
 
     return () => unsubscribe();
   }, []);
@@ -136,8 +156,17 @@ export default function Ventas() {
     setCarrito(carrito.filter(item => item.id !== id));
   };
 
-  const completarVenta = async () => {
+const completarVenta = async () => {
     if (carrito.length === 0) return;
+
+    if (!cajaActual) {
+      setAlerta({
+        show: true,
+        message: 'No hay una caja abierta. Por favor, abra la caja primero.',
+        severity: 'error'
+      });
+      return;
+    }
 
     try {
       const fecha = new Date().toISOString();
@@ -151,6 +180,17 @@ export default function Ventas() {
 
       // Guardar venta
       const ventaRef = await push(ref(db, 'ventas'), ventaData);
+      // Actualizar caja
+      await set(ref(db, `cajas/${cajaActual.id}/totalVentas`), cajaActual.totalVentas + total);
+
+      // Registrar movimiento en caja
+      await push(ref(db, `movimientos/${cajaActual.id}`), {
+        tipo: 'venta',
+        monto: total,
+        fecha: fecha,
+        descripcion: `Venta #${ventaRef.key}`,
+        usuario: 'sistema'
+      });
 
       // Actualizar stock de productos
       for (const item of carrito) {
