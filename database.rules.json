@@ -1,0 +1,18 @@
+{
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "productos": {
+      ".indexOn": ["codigo", "nombre", "categoria"]
+    },
+    "ventas": {
+      ".indexOn": ["fecha", "usuario"]
+    },
+    "categorias": {
+      ".indexOn": ["nombre"]
+    },
+    "usuarios": {
+      ".indexOn": ["email", "rol"]
+    }
+  }
+}
