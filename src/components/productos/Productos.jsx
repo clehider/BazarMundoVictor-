@@ -32,13 +32,16 @@ export default function Productos() {
   const [editando, setEditando] = useState(null);
   const [alerta, setAlerta] = useState({ show: false, message: '', severity: 'success' });
   const [producto, setProducto] = useState({
-    codigo: '',
-    nombre: '',
-    descripcion: '',
-    precio: 0,
-    stock: 0,
-    stockMinimo: 0,
-    categoria: null
+    codigo: "",
+    nombre: "",
+    descripcion: "",
+    precio: "",
+    precioMayorista1: "",
+    precioMayorista2: "",
+    cantidadMayorista1: "",
+    cantidadMayorista2: "",
+    stock: "",
+    categoria: ""
   });
 
   useEffect(() => {
@@ -166,6 +169,10 @@ export default function Productos() {
                 <TableCell>Nombre</TableCell>
                 <TableCell>Categoría</TableCell>
                 <TableCell>Precio</TableCell>
+          <TableCell align="right">Precio May.1 (Bs)</TableCell>
+          <TableCell align="right">Cant. Min. May.1</TableCell>
+          <TableCell align="right">Precio May.2 (Bs)</TableCell>
+          <TableCell align="right">Cant. Min. May.2</TableCell>
                 <TableCell>Stock</TableCell>
                 <TableCell>Acciones</TableCell>
               </TableRow>
