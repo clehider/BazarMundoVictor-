@@ -186,6 +186,10 @@ export default function Productos() {
                     {categorias.find(c => c.id === prod.categoria)?.nombre}
                   </TableCell>
                   <TableCell>{prod.precio}</TableCell>
+                  <TableCell>{prod.precioMayorista1}</TableCell>
+                  <TableCell>{prod.cantidadMayorista1}</TableCell>
+                  <TableCell>{prod.precioMayorista2}</TableCell>
+                  <TableCell>{prod.cantidadMayorista2}</TableCell>
                   <TableCell>{prod.stock}</TableCell>
                   <TableCell>
                     <IconButton onClick={() => handleEdit(prod)}>
@@ -268,11 +272,83 @@ export default function Productos() {
             <Grid item xs={12} sm={6}>
               <TextField
                 fullWidth
+                label="Precio Mayorista 1"
+                type="number"
+                value={producto.precioMayorista1}
+                onChange={(e) => setProducto({ ...producto, precioMayorista1: parseFloat(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Cantidad Mínima Mayorista 1"
+                type="number"
+                value={producto.cantidadMayorista1}
+                onChange={(e) => setProducto({ ...producto, cantidadMayorista1: parseInt(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Precio Mayorista 2"
+                type="number"
+                value={producto.precioMayorista2}
+                onChange={(e) => setProducto({ ...producto, precioMayorista2: parseFloat(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Cantidad Mínima Mayorista 2"
+                type="number"
+                value={producto.cantidadMayorista2}
+                onChange={(e) => setProducto({ ...producto, cantidadMayorista2: parseInt(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
                 label="Precio"
                 type="number"
                 value={producto.precio}
                 onChange={(e) => setProducto({ ...producto, precio: parseFloat(e.target.value) })}
                 required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Precio Mayorista 1"
+                type="number"
+                value={producto.precioMayorista1}
+                onChange={(e) => setProducto({ ...producto, precioMayorista1: parseFloat(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Cantidad Mínima Mayorista 1"
+                type="number"
+                value={producto.cantidadMayorista1}
+                onChange={(e) => setProducto({ ...producto, cantidadMayorista1: parseInt(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Precio Mayorista 2"
+                type="number"
+                value={producto.precioMayorista2}
+                onChange={(e) => setProducto({ ...producto, precioMayorista2: parseFloat(e.target.value) })}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Cantidad Mínima Mayorista 2"
+                type="number"
+                value={producto.cantidadMayorista2}
+                onChange={(e) => setProducto({ ...producto, cantidadMayorista2: parseInt(e.target.value) })}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
